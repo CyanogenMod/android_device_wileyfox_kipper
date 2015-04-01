@@ -79,14 +79,6 @@ TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_SEPOLICY_DIRS += \
     device/wileyfox/kipper/sepolicy
 
-BOARD_SEPOLICY_UNION += \
-    cktnv.te \
-    file.te \
-    file_contexts \
-    property.te \
-    property_contexts \
-    system_server.te
-
 # Wifi
 CONFIG_EAP_PROXY := qmi
 CONFIG_EAP_PROXY_DUAL_SIM := true
