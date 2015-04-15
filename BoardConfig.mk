@@ -47,13 +47,5 @@ TARGET_RECOVERY_PIXEL_FORMAT := ABGR_8888
 BOARD_SEPOLICY_DIRS += \
     device/wileyfox/kipper/sepolicy
 
-BOARD_SEPOLICY_UNION += \
-    file.te \
-    file_contexts \
-    system_app.te \
-    system_server.te \
-    system.te \
-    wcnss_service.te
-
 # inherit from the proprietary version
 -include vendor/wileyfox/kipper/BoardConfigVendor.mk
