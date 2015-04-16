@@ -61,18 +61,9 @@ vendor/lib/liboemcamera.so
 vendor/lib/libqomx_jpegenc.so
 
 # Camera autofocus
-vendor/lib/libactuator_dw9714_camcorder.so
-vendor/lib/libactuator_dw9714_camera.so
-vendor/lib/libactuator_dw9714.so
-vendor/lib/libactuator_lc898212_camcorder.so
-vendor/lib/libactuator_lc898212_camera.so
-vendor/lib/libactuator_lc898212.so
-vendor/lib/libactuator_rohm_bu64243gwz_214_camcorder.so
-vendor/lib/libactuator_rohm_bu64243gwz_214_camera.so
-vendor/lib/libactuator_rohm_bu64243gwz_214.so
-vendor/lib/libactuator_rohm_bu64243gwz_camcorder.so
-vendor/lib/libactuator_rohm_bu64243gwz_camera.so
-vendor/lib/libactuator_rohm_bu64243gwz.so
+vendor/lib/libactuator_rohm_bu64243gwz_spirit_camcorder.so
+vendor/lib/libactuator_rohm_bu64243gwz_spirit_camera.so
+vendor/lib/libactuator_rohm_bu64243gwz_spirit.so
 
 # Camera chromatix
 vendor/lib/libchromatix_imx220_common.so
