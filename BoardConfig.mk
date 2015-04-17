@@ -15,15 +15,15 @@
 
 -include device/cyanogen/msm8939-common/BoardConfigCommon.mk
 
-LOCAL_PATH := device/wileyfox/kipper
+DEVICE_PATH := device/wileyfox/kipper
 
-TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
+TARGET_SPECIFIC_HEADER_PATH := $(DEVICE_PATH)/include
 
 # Kernel
 TARGET_KERNEL_CONFIG := cyanogenmod_kipper-64_defconfig
 
 # Bluetooth
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(LOCAL_PATH)/bluetooth
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_PATH)/bluetooth
 
 # Camera
 BOARD_CAMERA_SENSORS := imx220 ov8858_q8v19w_spirit
