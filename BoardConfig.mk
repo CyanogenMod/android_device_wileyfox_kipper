@@ -44,5 +44,8 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 29290888192 # 29290904576 - 16384
 BOARD_SEPOLICY_DIRS += \
     device/wileyfox/kipper/sepolicy
 
+# Wifi
+TARGET_USES_QCOM_WCNSS_QMI := true
+
 # inherit from the proprietary version
 -include vendor/wileyfox/kipper/BoardConfigVendor.mk
