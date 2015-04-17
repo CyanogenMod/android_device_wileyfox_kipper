@@ -273,4 +273,3 @@ vendor/lib/libTimeService.so
 
 # WiFi
 lib64/libwcnss_qmi.so
-lib/libwcnss_qmi.so
