@@ -64,6 +64,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml
 
+# Ramdisk
+PRODUCT_PACKAGES += \
+    init.target.rc
+
 # Sensors
 PRODUCT_PACKAGES += \
     sensors.msm8916

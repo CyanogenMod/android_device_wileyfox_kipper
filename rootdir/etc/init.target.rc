@@ -1,0 +1,100 @@
+# Copyright (c) 2009-2012, 2014, The Linux Foundation. All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#     * Redistributions of source code must retain the above copyright
+#       notice, this list of conditions and the following disclaimer.
+#     * Redistributions in binary form must reproduce the above copyright
+#       notice, this list of conditions and the following disclaimer in the
+#       documentation and/or other materials provided with the distribution.
+#     * Neither the name of The Linux Foundation nor
+#       the names of its contributors may be used to endorse or promote
+#       products derived from this software without specific prior written
+#       permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NON-INFRINGEMENT ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+# CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+# EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#
+
+on boot
+
+    # LSM6DS0 accelerometer
+    chown system system /sys/class/sensors/lsm6ds0_accelerometer/calibrate
+    chown system system /sys/class/sensors/lsm6ds0_accelerometer/enable
+    chown system system /sys/class/sensors/lsm6ds0_accelerometer/enable_wakeup
+    chown system system /sys/class/sensors/lsm6ds0_accelerometer/flush
+    chown system system /sys/class/sensors/lsm6ds0_accelerometer/max_latency
+    chown system system /sys/class/sensors/lsm6ds0_accelerometer/poll_delay
+    chmod 0660 /sys/class/sensors/lsm6ds0_accelerometer/calibrate
+    chmod 0660 /sys/class/sensors/lsm6ds0_accelerometer/enable
+    chmod 0660 /sys/class/sensors/lsm6ds0_accelerometer/enable_wakeup
+    chmod 0660 /sys/class/sensors/lsm6ds0_accelerometer/flush
+    chmod 0660 /sys/class/sensors/lsm6ds0_accelerometer/max_latency
+    chmod 0660 /sys/class/sensors/lsm6ds0_accelerometer/poll_delay
+
+    # LSM6DS0 gyroscope
+    chown system system /sys/class/sensors/lsm6ds0_gyroscope/calibrate
+    chown system system /sys/class/sensors/lsm6ds0_gyroscope/enable
+    chown system system /sys/class/sensors/lsm6ds0_gyroscope/enable_wakeup
+    chown system system /sys/class/sensors/lsm6ds0_gyroscope/flush
+    chown system system /sys/class/sensors/lsm6ds0_gyroscope/max_latency
+    chown system system /sys/class/sensors/lsm6ds0_gyroscope/poll_delay
+    chmod 0660 /sys/class/sensors/lsm6ds0_gyroscope/calibrate
+    chmod 0660 /sys/class/sensors/lsm6ds0_gyroscope/enable
+    chmod 0660 /sys/class/sensors/lsm6ds0_gyroscope/enable_wakeup
+    chmod 0660 /sys/class/sensors/lsm6ds0_gyroscope/flush
+    chmod 0660 /sys/class/sensors/lsm6ds0_gyroscope/max_latency
+    chmod 0660 /sys/class/sensors/lsm6ds0_gyroscope/poll_delay
+
+    # LTR553 light
+    chown system system /sys/class/sensors/ltr553_light/calibrate
+    chown system system /sys/class/sensors/ltr553_light/enable
+    chown system system /sys/class/sensors/ltr553_light/enable_wakeup
+    chown system system /sys/class/sensors/ltr553_light/flush
+    chown system system /sys/class/sensors/ltr553_light/max_latency
+    chown system system /sys/class/sensors/ltr553_light/poll_delay
+    chmod 0660 /sys/class/sensors/ltr553_light/calibrate
+    chmod 0660 /sys/class/sensors/ltr553_light/enable
+    chmod 0660 /sys/class/sensors/ltr553_light/enable_wakeup
+    chmod 0660 /sys/class/sensors/ltr553_light/flush
+    chmod 0660 /sys/class/sensors/ltr553_light/max_latency
+    chmod 0660 /sys/class/sensors/ltr553_light/poll_delay
+
+    # LTR553 proximity
+    chown system system /sys/class/sensors/ltr553_proximity/calibrate
+    chown system system /sys/class/sensors/ltr553_proximity/enable
+    chown system system /sys/class/sensors/ltr553_proximity/enable_wakeup
+    chown system system /sys/class/sensors/ltr553_proximity/flush
+    chown system system /sys/class/sensors/ltr553_proximity/max_latency
+    chown system system /sys/class/sensors/ltr553_proximity/poll_delay
+    chmod 0660 /sys/class/sensors/ltr553_proximity/calibrate
+    chmod 0660 /sys/class/sensors/ltr553_proximity/enable
+    chmod 0660 /sys/class/sensors/ltr553_proximity/enable_wakeup
+    chmod 0660 /sys/class/sensors/ltr553_proximity/flush
+    chmod 0660 /sys/class/sensors/ltr553_proximity/max_latency
+    chmod 0660 /sys/class/sensors/ltr553_proximity/poll_delay
+
+    # ST480
+    chown system system /sys/class/sensors/st480/calibrate
+    chown system system /sys/class/sensors/st480/enable
+    chown system system /sys/class/sensors/st480/enable_wakeup
+    chown system system /sys/class/sensors/st480/flush
+    chown system system /sys/class/sensors/st480/max_latency
+    chown system system /sys/class/sensors/st480/poll_delay
+    chmod 0660 /sys/class/sensors/st480/calibrate
+    chmod 0660 /sys/class/sensors/st480/enable
+    chmod 0660 /sys/class/sensors/st480/enable_wakeup
+    chmod 0660 /sys/class/sensors/st480/flush
+    chmod 0660 /sys/class/sensors/st480/max_latency
+    chmod 0660 /sys/class/sensors/st480/poll_delay
+
+
