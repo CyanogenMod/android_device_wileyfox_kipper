@@ -26,7 +26,10 @@
 <!-- IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                          -->
 <audio_platform_info>
     <acdb_ids>
-        <device name="SND_DEVICE_OUT_SPEAKER" acdb_id="15" />
+        <device name="SND_DEVICE_IN_HANDSET_DMIC" acdb_id="6" />
+        <device name="SND_DEVICE_IN_SPEAKER_DMIC" acdb_id="13" />
+        <device name="SND_DEVICE_IN_VOICE_DMIC" acdb_id="6" />
+        <device name="SND_DEVICE_IN_VOICE_SPEAKER_DMIC" acdb_id="13" />
     </acdb_ids>
 
     <backend_names>
