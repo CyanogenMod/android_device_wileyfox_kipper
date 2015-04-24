@@ -27,6 +27,8 @@ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
 IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 --------------------------------------------------------------------------*/
 
+#include <float.h>
+#include <math.h>
 #include <stdio.h>
 #include <CalibrationModule.h>
 #include <sensors.h>
@@ -34,16 +36,8 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define LOG_TAG "sensor_cal.common"
 #include <utils/Log.h>
 
-#include "compass/AKFS_Device.h"
-#include "compass/AKFS_Decomp.h"
-#include "compass/AKFS_AOC.h"
-#include "compass/AKFS_Math.h"
-#include "compass/AKFS_VNorm.h"
-
 #define SENSOR_CAL_ALGO_VERSION 1
-#define AKM_MAG_SENSE                   (1.0)
 #define CSPEC_HNAVE_V   8
-#define AKFS_GEOMAG_MAX 70
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
 
@@ -63,47 +57,6 @@ struct sensor_vec {
 struct sensor_cal_module_t SENSOR_CAL_MODULE_INFO;
 static struct sensor_cal_algo_t algo_list[];
 
-/*! A parameter structure. */
-/* ix*_ : x-bit integer */
-/* f**_ : floating value */
-/* p**_ : pointer */
-/* e**_ : enum */
-/* *s*_ : struct */
-/* *v*_ : vector (special type of struct) */
-/* **a_ : array */
-typedef struct _AKMPRMS{
-
-	/* Variables for Decomp. */
-	AKFVEC                  fva_hdata[AKFS_HDATA_SIZE];
-	uint8vec                i8v_asa;
-
-	/* Variables forAOC. */
-	AKFS_AOC_VAR    s_aocv;
-
-	/* Variables for Magnetometer buffer. */
-	AKFVEC                  fva_hvbuf[AKFS_HDATA_SIZE];
-	AKFVEC                  fv_ho;
-	AKFVEC                  fv_hs;
-	AKFS_PATNO              e_hpat;
-
-	/* Variables for Accelerometer buffer. */
-	AKFVEC                  fva_avbuf[AKFS_ADATA_SIZE];
-	AKFVEC                  fv_ao;
-	AKFVEC                  fv_as;
-
-	/* Variables for Direction. */
-	AKFLOAT                 f_azimuth;
-	AKFLOAT                 f_pitch;
-	AKFLOAT                 f_roll;
-
-	/* Variables for vector output */
-	AKFVEC                  fv_hvec;
-	AKFVEC                  fv_avec;
-	int16                   i16_hstatus;
-
-} AKMPRMS;
-
-static AKMPRMS g_prms;
 static float last_pocket = -1.0f;
 static float last_light = -1.0f;
 static float last_proximity = -1.0f;
@@ -111,85 +64,6 @@ static float last_proximity = -1.0f;
 static int convert_magnetic(sensors_event_t *raw, sensors_event_t *result,
 		struct sensor_algo_args *args __attribute__((unused)))
 {
-	int16 akret;
-	int16 aocret;
-	AKFLOAT radius;
-	AKMPRMS *prms = &g_prms;
-	int i;
-
-	/* Shift out old data from the buffer for better calibration */
-	for (i = AKFS_HDATA_SIZE - 1; i >= 1; i--) {
-		prms->fva_hdata[i] = prms->fva_hdata[i - 1];
-	}
-
-	prms->fva_hdata[0].u.x = raw->magnetic.x;
-	prms->fva_hdata[0].u.y = raw->magnetic.y;
-	prms->fva_hdata[0].u.z = raw->magnetic.z;
-
-	/* Offset calculation is done in this function */
-	/* hdata[in] : Android coordinate, sensitivity adjusted. */
-	/* ho   [out]: Android coordinate, sensitivity adjusted. */
-	aocret = AKFS_AOC(
-		&prms->s_aocv,
-		prms->fva_hdata,
-		&prms->fv_ho
-	);
-
-	/* Subtract offset */
-	/* hdata[in] : Android coordinate, sensitivity adjusted. */
-	/* ho   [in] : Android coordinate, sensitivity adjusted. */
-	/* hvbuf[out]: Android coordinate, sensitivity adjusted, */
-	/*			   offset subtracted. */
-	akret = AKFS_VbNorm(
-		AKFS_HDATA_SIZE,
-		prms->fva_hdata,
-		1,
-		&prms->fv_ho,
-		&prms->fv_hs,
-		AKM_MAG_SENSE,
-		AKFS_HDATA_SIZE,
-		prms->fva_hvbuf
-	);
-	if (akret == AKFS_ERROR) {
-		ALOGE("error here!");
-		return -1;
-	}
-
-	/* Averaging */
-	/* hvbuf[in] : Android coordinate, sensitivity adjusted, */
-	/*			   offset subtracted. */
-	/* hvec [out]: Android coordinate, sensitivity adjusted, */
-	/*			   offset subtracted, averaged. */
-	akret = AKFS_VbAve(
-		AKFS_HDATA_SIZE,
-		prms->fva_hvbuf,
-		CSPEC_HNAVE_V,
-		&prms->fv_hvec
-	);
-	if (akret == AKFS_ERROR) {
-		ALOGE("error here!");
-		return -1;
-	}
-
-	/* Check the size of magnetic vector */
-	radius = AKFS_SQRT(
-			(prms->fv_hvec.u.x * prms->fv_hvec.u.x) +
-			(prms->fv_hvec.u.y * prms->fv_hvec.u.y) +
-			(prms->fv_hvec.u.z * prms->fv_hvec.u.z));
-
-	if (radius > AKFS_GEOMAG_MAX) {
-		prms->i16_hstatus = 0;
-	} else {
-		if (aocret == AKFS_SUCCESS) {
-			prms->i16_hstatus = 3;
-		}
-	}
-
-	result->magnetic.x = prms->fv_hvec.u.x;
-	result->magnetic.y = prms->fv_hvec.u.y;
-	result->magnetic.z = prms->fv_hvec.u.z;
-	result->magnetic.status = prms->i16_hstatus;
-
 	return 0;
 }
 
@@ -386,28 +260,9 @@ static int config_pocket(int cmd, struct sensor_algo_args *args)
 	return 0;
 }
 
-static int cal_init(const struct sensor_cal_module_t *module __attribute__((unused)))
+static int cal_init(const struct sensor_cal_module_t *module __attribute__((unused)),
+		struct sensor_algo_args *args __attribute__((unused)))
 {
-	AKMPRMS *prms = &g_prms;
-
-	/* Clear all data. */
-	memset(prms, 0, sizeof(AKMPRMS));
-
-	/* Sensitivity */
-	prms->fv_hs.u.x = AKM_MAG_SENSE;
-	prms->fv_hs.u.y = AKM_MAG_SENSE;
-	prms->fv_hs.u.z = AKM_MAG_SENSE;
-
-	/* Initialize buffer */
-	AKFS_InitBuffer(AKFS_HDATA_SIZE, prms->fva_hdata);
-	AKFS_InitBuffer(AKFS_HDATA_SIZE, prms->fva_hvbuf);
-	AKFS_InitBuffer(AKFS_ADATA_SIZE, prms->fva_avbuf);
-
-	/* Initialize for AOC */
-	AKFS_InitAOC(&prms->s_aocv);
-	/* Initialize magnetic status */
-	prms->i16_hstatus = 0;
-
 	return 0;
 }
 
