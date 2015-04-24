@@ -491,7 +491,6 @@ int NativeSensorManager::getDataInfo() {
 				/* reporting mode fix up */
 				list->sensor->flags |= SENSOR_FLAG_ON_CHANGE_MODE;
 #endif
-				list->sensor->flags |= SENSOR_FLAG_WAKE_UP;
 				list->driver = new ProximitySensor(list);
 				sensor_proximity = *(list->sensor);
 				break;
