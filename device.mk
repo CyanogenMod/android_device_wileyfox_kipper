@@ -71,6 +71,7 @@ PRODUCT_PACKAGES += \
 
 # Sensors
 PRODUCT_PACKAGES += \
+    libcalmodule_common \
     sensors.msm8916
 
 # Thermal
