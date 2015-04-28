@@ -74,9 +74,5 @@ PRODUCT_PACKAGES += \
     libcalmodule_common \
     sensors.msm8916
 
-# Thermal
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/thermal-engine.conf:system/etc/thermal-engine.conf
-
 # Inherit from msm8939-common
 $(call inherit-product, device/cyanogen/msm8939-common/msm8939.mk)
