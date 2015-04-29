@@ -28,6 +28,9 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_PATH)/bluetooth
 # Camera
 BOARD_CAMERA_SENSORS := imx220 ov8858_q8v19w_spirit
 
+# CMHW
+BOARD_HARDWARE_CLASS += $(DEVICE_PATH)/cmhw
+
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
 
@@ -46,6 +49,11 @@ TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
 # SELinux
 BOARD_SEPOLICY_DIRS += \
     device/wileyfox/kipper/sepolicy
+
+BOARD_SEPOLICY_UNION += \
+    file.te \
+    file_contexts \
+    system_server.te
 
 # Wifi
 TARGET_USES_QCOM_WCNSS_QMI := true
