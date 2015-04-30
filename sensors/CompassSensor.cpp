@@ -205,7 +205,9 @@ again:
 					mPendingEvent.timestamp = report_time+event->value;
 					break;
 				case SYN_REPORT:
-					mPendingEvent.timestamp = timevalToNano(event->time);
+					if (mUseAbsTimeStamp != true) {
+						mPendingEvent.timestamp = timevalToNano(event->time);
+					}
 					if (mEnabled) {
 						raw = mPendingEvent;
 
