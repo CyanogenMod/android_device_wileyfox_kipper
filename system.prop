@@ -3,4 +3,4 @@ ro.sf.lcd_density=480
 
 # Radio
 persist.radio.multisim.config=dsds
-ro.telephony.default_network=10,1
+ro.telephony.default_network=9,1
