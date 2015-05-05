@@ -19,6 +19,9 @@ DEVICE_PATH := device/wileyfox/kipper
 
 TARGET_SPECIFIC_HEADER_PATH := $(DEVICE_PATH)/include
 
+# Asserts
+TARGET_OTA_ASSERT_DEVICE := kipper,tod
+
 # Kernel
 TARGET_KERNEL_CONFIG := cyanogenmod_kipper-64_defconfig
 

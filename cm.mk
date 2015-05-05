@@ -20,3 +20,11 @@ $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 PRODUCT_NAME := cm_kipper
 BOARD_VENDOR := wileyfox
 PRODUCT_DEVICE := kipper
+
+PRODUCT_MANUFACTURER := Wileyfox
+PRODUCT_MODEL := Wileyfox Storm
+
+PRODUCT_BRAND := WileyFox
+TARGET_VENDOR := wileyfox
+TARGET_VENDOR_PRODUCT_NAME := Storm
+TARGET_VENDOR_DEVICE_NAME := kipper
