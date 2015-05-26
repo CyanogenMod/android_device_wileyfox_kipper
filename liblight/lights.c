@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The CyanogenMod Project
+ * Copyright (C) 2014-2015 The CyanogenMod Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,6 @@
 
 #include <cutils/log.h>
 
-#include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
 #include <unistd.h>
@@ -55,6 +54,15 @@ const char *const GREEN_LED_FILE
 
 const char *const BLUE_LED_FILE
         = "/sys/class/leds/blue/brightness";
+
+const char *const RED_BLINK_FILE
+        = "/sys/class/leds/red/blink";
+
+const char *const GREEN_BLINK_FILE
+        = "/sys/class/leds/green/blink";
+
+const char *const BLUE_BLINK_FILE
+        = "/sys/class/leds/blue/blink";
 
 /**
  * device methods
@@ -114,23 +122,72 @@ static int
 set_speaker_light_locked(struct light_device_t *dev,
         struct light_state_t const *state)
 {
-    int len;
-    int blink, freq, pwm;
+    int red, green, blue;
+    int blink;
     int onMS, offMS;
     unsigned int colorRGB;
+
+    if(!dev) {
+        return -1;
+    }
 
     if (state == NULL) {
         write_int(RED_LED_FILE, 0);
         write_int(GREEN_LED_FILE, 0);
         write_int(BLUE_LED_FILE, 0);
+        write_int(RED_BLINK_FILE, 0);
+        write_int(GREEN_BLINK_FILE, 0);
+        write_int(BLUE_BLINK_FILE, 0);
         return 0;
+    }
+
+    switch (state->flashMode) {
+        case LIGHT_FLASH_TIMED:
+            onMS = state->flashOnMS;
+            offMS = state->flashOffMS;
+            break;
+        case LIGHT_FLASH_NONE:
+        default:
+            onMS = 0;
+            offMS = 0;
+            break;
     }
 
     colorRGB = state->color;
 
-    write_int(RED_LED_FILE, (colorRGB >> 16) & 0xFF);
-    write_int(GREEN_LED_FILE, (colorRGB >> 8) & 0xFF);
-    write_int(BLUE_LED_FILE, colorRGB & 0xFF);
+#if 0
+    ALOGD("set_speaker_light_locked mode %d, colorRGB=%08X, onMS=%d, offMS=%d\n",
+            state->flashMode, colorRGB, onMS, offMS);
+#endif
+
+    red = (colorRGB >> 16) & 0xFF;
+    green = (colorRGB >> 8) & 0xFF;
+    blue = colorRGB & 0xFF;
+
+    if (onMS > 0 && offMS > 0) {
+        blink = 1;
+    } else {
+        blink = 0;
+    }
+
+    if (blink) {
+        if (red) {
+            if (write_int(RED_BLINK_FILE, blink))
+                write_int(RED_LED_FILE, 0);
+        }
+        if (green) {
+            if (write_int(GREEN_BLINK_FILE, blink))
+                write_int(GREEN_LED_FILE, 0);
+        }
+        if (blue) {
+            if (write_int(BLUE_BLINK_FILE, blink))
+                write_int(BLUE_LED_FILE, 0);
+        }
+    } else {
+        write_int(RED_LED_FILE, red);
+        write_int(GREEN_LED_FILE, green);
+        write_int(BLUE_LED_FILE, blue);
+    }
 
     return 0;
 }
@@ -140,9 +197,9 @@ handle_speaker_light_locked(struct light_device_t *dev)
 {
     set_speaker_light_locked(dev, NULL);
     if (is_lit(&g_attention)) {
-        /* Do nothing, LED driver cannot blink */
+        set_speaker_light_locked(dev, &g_attention);
     } else if (is_lit(&g_notification)) {
-        /* Do nothing, LED driver cannot blink */
+        set_speaker_light_locked(dev, &g_notification);
     } else {
         set_speaker_light_locked(dev, &g_battery);
     }
