@@ -100,10 +100,5 @@ PRODUCT_PACKAGES += \
     libcalmodule_common \
     sensors.msm8916
 
-# Search partner codes for the device
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.browser.search_code_bing=CY03 \
-    ro.browser.search_code_yahoo=cya_oem3
-
 # Inherit from msm8939-common
 $(call inherit-product, device/cyanogen/msm8939-common/msm8939.mk)
