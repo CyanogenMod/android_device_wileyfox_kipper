@@ -39,6 +39,15 @@ BOARD_CHARGER_DISABLE_INIT_BLANK := true
 # CMHW
 BOARD_HARDWARE_CLASS += $(DEVICE_PATH)/cmhw
 
+# Dexopt
+ifeq ($(HOST_OS),linux)
+  ifeq ($(TARGET_BUILD_VARIANT),user)
+    ifeq ($(WITH_DEXPREOPT),)
+      WITH_DEXPREOPT := true
+    endif
+  endif
+endif
+
 # GPS
 TARGET_GPS_HAL_PATH := $(DEVICE_PATH)/gps
 TARGET_NO_RPC := true
