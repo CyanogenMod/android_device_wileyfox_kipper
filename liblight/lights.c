@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-
 //#define LOG_NDEBUG 0
 #define LOG_TAG "lights"
 
 #include <cutils/log.h>
 
+#include <stdbool.h>
 #include <stdint.h>
 #include <string.h>
 #include <unistd.h>
@@ -211,10 +211,15 @@ set_light_backlight(struct light_device_t *dev,
 {
     int err = 0;
     int brightness = rgb_to_brightness(state);
+    bool is_display_on = (brightness > 0) ? true : false;
 
     pthread_mutex_lock(&g_lock);
 
     err = write_int(LCD_FILE, brightness);
+
+    if (!is_display_on) {
+        handle_speaker_light_locked(dev);
+    }
 
     pthread_mutex_unlock(&g_lock);
 
@@ -231,6 +236,9 @@ set_light_buttons(struct light_device_t *dev,
     pthread_mutex_lock(&g_lock);
 
     err = write_int(BUTTONS_FILE, brightness);
+    err = write_int(RED_LED_FILE, brightness ? 127 : 0);
+    err = write_int(GREEN_LED_FILE, brightness ? 127 : 0);
+    err = write_int(BLUE_LED_FILE, brightness ? 127 : 0);
 
     pthread_mutex_unlock(&g_lock);
 
@@ -242,10 +250,7 @@ set_light_notifications(struct light_device_t *dev,
         const struct light_state_t *state)
 {
     pthread_mutex_lock(&g_lock);
-
     g_notification = *state;
-    handle_speaker_light_locked(dev);
-
     pthread_mutex_unlock(&g_lock);
 
     return 0;
@@ -256,10 +261,7 @@ set_light_attention(struct light_device_t *dev,
         const struct light_state_t *state)
 {
     pthread_mutex_lock(&g_lock);
-
     g_attention = *state;
-    handle_speaker_light_locked(dev);
-
     pthread_mutex_unlock(&g_lock);
 
     return 0;
@@ -270,10 +272,7 @@ set_light_battery(struct light_device_t *dev,
         const struct light_state_t *state)
 {
     pthread_mutex_lock(&g_lock);
-
     g_battery = *state;
-    handle_speaker_light_locked(dev);
-
     pthread_mutex_unlock(&g_lock);
 
     return 0;
