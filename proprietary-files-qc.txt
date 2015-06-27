@@ -48,6 +48,7 @@ vendor/lib/libmmcamera_hdr_gb_lib.so
 vendor/lib/libmmcamera_hdr_lib.so
 vendor/lib/libmmcamera_imglib.so
 vendor/lib/libmmcamera_imx220.so
+vendor/lib/libmmcamera_imx230.so
 vendor/lib/libmmcamera_ov8858_q8v19w_spirit.so
 vendor/lib/libmmcamera_qtech_ov8858_eeprom.so
 vendor/lib/libmmcamera_sonyimx220_eeprom.so
@@ -61,6 +62,9 @@ vendor/lib/liboemcamera.so
 vendor/lib/libqomx_jpegenc.so
 
 # Camera autofocus
+vendor/lib/libactuator_bu64297_q13v06k_camcorder.so
+vendor/lib/libactuator_bu64297_q13v06k_camera.so
+vendor/lib/libactuator_bu64297_q13v06k.so
 vendor/lib/libactuator_rohm_bu64243gwz_spirit_camcorder.so
 vendor/lib/libactuator_rohm_bu64243gwz_spirit_camera.so
 vendor/lib/libactuator_rohm_bu64243gwz_spirit.so
@@ -75,6 +79,15 @@ vendor/lib/libchromatix_imx220_liveshot.so
 vendor/lib/libchromatix_imx220_preview.so
 vendor/lib/libchromatix_imx220_snapshot.so
 vendor/lib/libchromatix_imx220_zsl.so
+vendor/lib/libchromatix_imx230_common.so
+vendor/lib/libchromatix_imx230_default_video.so
+vendor/lib/libchromatix_imx230_hfr_120fps.so
+vendor/lib/libchromatix_imx230_hfr_60fps.so
+vendor/lib/libchromatix_imx230_hfr_90fps.so
+vendor/lib/libchromatix_imx230_liveshot.so
+vendor/lib/libchromatix_imx230_preview.so
+vendor/lib/libchromatix_imx230_snapshot.so
+vendor/lib/libchromatix_imx230_zsl.so
 vendor/lib/libchromatix_ov8858_q8v19w_common.so
 vendor/lib/libchromatix_ov8858_q8v19w_default_video.so
 vendor/lib/libchromatix_ov8858_q8v19w_hfr_120fps.so
