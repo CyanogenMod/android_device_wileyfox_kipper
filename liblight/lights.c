@@ -31,6 +31,8 @@
 
 #include <hardware/lights.h>
 
+#define UNUSED __attribute__((unused))
+
 /******************************************************************************/
 
 static pthread_once_t g_init = PTHREAD_ONCE_INIT;
@@ -127,7 +129,7 @@ set_speaker_light_locked(struct light_device_t *dev,
     int onMS, offMS;
     unsigned int colorRGB;
 
-    if(!dev) {
+    if (!dev) {
         return -1;
     }
 
@@ -206,7 +208,7 @@ handle_speaker_light_locked(struct light_device_t *dev)
 }
 
 static int
-set_light_backlight(struct light_device_t *dev,
+set_light_backlight(UNUSED struct light_device_t *dev,
         const struct light_state_t *state)
 {
     int err = 0;
@@ -227,7 +229,7 @@ set_light_backlight(struct light_device_t *dev,
 }
 
 static int
-set_light_buttons(struct light_device_t *dev,
+set_light_buttons(UNUSED struct light_device_t *dev,
         const struct light_state_t *state)
 {
     int err = 0;
@@ -246,7 +248,7 @@ set_light_buttons(struct light_device_t *dev,
 }
 
 static int
-set_light_notifications(struct light_device_t *dev,
+set_light_notifications(UNUSED struct light_device_t *dev,
         const struct light_state_t *state)
 {
     pthread_mutex_lock(&g_lock);
@@ -257,7 +259,7 @@ set_light_notifications(struct light_device_t *dev,
 }
 
 static int
-set_light_attention(struct light_device_t *dev,
+set_light_attention(UNUSED struct light_device_t *dev,
         const struct light_state_t *state)
 {
     pthread_mutex_lock(&g_lock);
@@ -268,7 +270,7 @@ set_light_attention(struct light_device_t *dev,
 }
 
 static int
-set_light_battery(struct light_device_t *dev,
+set_light_battery(UNUSED struct light_device_t *dev,
         const struct light_state_t *state)
 {
     pthread_mutex_lock(&g_lock);
