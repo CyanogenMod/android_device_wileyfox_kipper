@@ -4,6 +4,9 @@ ro.sf.lcd_density=480
 # Factory reset protection
 ro.frp.pst=/dev/block/bootdevice/by-name/frp
 
+# Hardware revision
+ro.product.model.platform=1
+
 # Radio
 persist.radio.multisim.config=dsds
 ro.telephony.default_network=9,1
