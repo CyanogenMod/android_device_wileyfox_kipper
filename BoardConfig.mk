@@ -79,6 +79,8 @@ BOARD_SEPOLICY_UNION += \
     system_server.te
 
 # Wifi
+CONFIG_EAP_PROXY := qmi
+CONFIG_EAP_PROXY_DUAL_SIM := true
 TARGET_USES_QCOM_WCNSS_QMI := true
 
 # inherit from the proprietary version
