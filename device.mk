@@ -85,6 +85,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     init.target.rc
 
+# Recovery
+PRODUCT_EXTRA_RECOVERY_KEYS += \
+    $(LOCAL_PATH)/kipper-releasekey
+
 # RIL
 ifeq ($(QCPATH),)
 PRODUCT_COPY_FILES += \
