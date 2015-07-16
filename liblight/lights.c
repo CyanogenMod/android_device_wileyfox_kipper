@@ -41,6 +41,8 @@ static pthread_mutex_t g_lock = PTHREAD_MUTEX_INITIALIZER;
 static struct light_state_t g_attention;
 static struct light_state_t g_notification;
 static struct light_state_t g_battery;
+static struct light_state_t g_buttons;
+static uint32_t g_battery_color = 0;
 
 const char *const LCD_FILE
         = "/sys/class/leds/lcd-backlight/brightness";
@@ -198,11 +200,13 @@ static void
 handle_speaker_light_locked(struct light_device_t *dev)
 {
     set_speaker_light_locked(dev, NULL);
-    if (is_lit(&g_attention)) {
+    if (is_lit(&g_buttons)) {
+        set_speaker_light_locked(dev, &g_buttons);
+    } else if (is_lit(&g_attention)) {
         set_speaker_light_locked(dev, &g_attention);
     } else if (is_lit(&g_notification)) {
         set_speaker_light_locked(dev, &g_notification);
-    } else {
+    } else if (is_lit(&g_battery)) {
         set_speaker_light_locked(dev, &g_battery);
     }
 }
@@ -216,13 +220,9 @@ set_light_backlight(UNUSED struct light_device_t *dev,
     bool is_display_on = (brightness > 0) ? true : false;
 
     pthread_mutex_lock(&g_lock);
-
     err = write_int(LCD_FILE, brightness);
-
-    if (!is_display_on) {
-        handle_speaker_light_locked(dev);
-    }
-
+    g_battery.color = is_display_on ? 0 : g_battery_color;
+    handle_speaker_light_locked(dev);
     pthread_mutex_unlock(&g_lock);
 
     return err;
@@ -234,14 +234,11 @@ set_light_buttons(UNUSED struct light_device_t *dev,
 {
     int err = 0;
     int brightness = rgb_to_brightness(state);
-
     pthread_mutex_lock(&g_lock);
-
+    g_buttons = *state;
+    g_buttons.color = brightness ? 0x007f7f7f : 0;
     err = write_int(BUTTONS_FILE, brightness);
-    err = write_int(RED_LED_FILE, brightness ? 127 : 0);
-    err = write_int(GREEN_LED_FILE, brightness ? 127 : 0);
-    err = write_int(BLUE_LED_FILE, brightness ? 127 : 0);
-
+    handle_speaker_light_locked(dev);
     pthread_mutex_unlock(&g_lock);
 
     return err;
@@ -275,6 +272,7 @@ set_light_battery(UNUSED struct light_device_t *dev,
 {
     pthread_mutex_lock(&g_lock);
     g_battery = *state;
+    g_battery_color = g_battery.color;
     pthread_mutex_unlock(&g_lock);
 
     return 0;
