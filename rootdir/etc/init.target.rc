@@ -56,32 +56,32 @@ on boot
     chmod 0660 /sys/class/sensors/lsm6ds0_gyroscope/poll_delay
 
     # LTR553 light
-    chown system system /sys/class/sensors/ltr553_light/calibrate
-    chown system system /sys/class/sensors/ltr553_light/enable
-    chown system system /sys/class/sensors/ltr553_light/enable_wakeup
-    chown system system /sys/class/sensors/ltr553_light/flush
-    chown system system /sys/class/sensors/ltr553_light/max_latency
-    chown system system /sys/class/sensors/ltr553_light/poll_delay
-    chmod 0660 /sys/class/sensors/ltr553_light/calibrate
-    chmod 0660 /sys/class/sensors/ltr553_light/enable
-    chmod 0660 /sys/class/sensors/ltr553_light/enable_wakeup
-    chmod 0660 /sys/class/sensors/ltr553_light/flush
-    chmod 0660 /sys/class/sensors/ltr553_light/max_latency
-    chmod 0660 /sys/class/sensors/ltr553_light/poll_delay
+    chown system system /sys/class/sensors/ltr553-light/calibrate
+    chown system system /sys/class/sensors/ltr553-light/enable
+    chown system system /sys/class/sensors/ltr553-light/enable_wakeup
+    chown system system /sys/class/sensors/ltr553-light/flush
+    chown system system /sys/class/sensors/ltr553-light/max_latency
+    chown system system /sys/class/sensors/ltr553-light/poll_delay
+    chmod 0660 /sys/class/sensors/ltr553-light/calibrate
+    chmod 0660 /sys/class/sensors/ltr553-light/enable
+    chmod 0660 /sys/class/sensors/ltr553-light/enable_wakeup
+    chmod 0660 /sys/class/sensors/ltr553-light/flush
+    chmod 0660 /sys/class/sensors/ltr553-light/max_latency
+    chmod 0660 /sys/class/sensors/ltr553-light/poll_delay
 
     # LTR553 proximity
-    chown system system /sys/class/sensors/ltr553_proximity/calibrate
-    chown system system /sys/class/sensors/ltr553_proximity/enable
-    chown system system /sys/class/sensors/ltr553_proximity/enable_wakeup
-    chown system system /sys/class/sensors/ltr553_proximity/flush
-    chown system system /sys/class/sensors/ltr553_proximity/max_latency
-    chown system system /sys/class/sensors/ltr553_proximity/poll_delay
-    chmod 0660 /sys/class/sensors/ltr553_proximity/calibrate
-    chmod 0660 /sys/class/sensors/ltr553_proximity/enable
-    chmod 0660 /sys/class/sensors/ltr553_proximity/enable_wakeup
-    chmod 0660 /sys/class/sensors/ltr553_proximity/flush
-    chmod 0660 /sys/class/sensors/ltr553_proximity/max_latency
-    chmod 0660 /sys/class/sensors/ltr553_proximity/poll_delay
+    chown system system /sys/class/sensors/ltr553-proximity/calibrate
+    chown system system /sys/class/sensors/ltr553-proximity/enable
+    chown system system /sys/class/sensors/ltr553-proximity/enable_wakeup
+    chown system system /sys/class/sensors/ltr553-proximity/flush
+    chown system system /sys/class/sensors/ltr553-proximity/max_latency
+    chown system system /sys/class/sensors/ltr553-proximity/poll_delay
+    chmod 0660 /sys/class/sensors/ltr553-proximity/calibrate
+    chmod 0660 /sys/class/sensors/ltr553-proximity/enable
+    chmod 0660 /sys/class/sensors/ltr553-proximity/enable_wakeup
+    chmod 0660 /sys/class/sensors/ltr553-proximity/flush
+    chmod 0660 /sys/class/sensors/ltr553-proximity/max_latency
+    chmod 0660 /sys/class/sensors/ltr553-proximity/poll_delay
 
     # ST480
     chown system system /sys/class/sensors/st480/calibrate
