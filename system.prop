@@ -10,6 +10,9 @@ ro.product.model.platform=1
 # Radio
 persist.radio.multisim.config=dsds
 ro.telephony.default_network=9,1
+persist.radio.custom_ecc=1
+persist.radio.ecc_hard_1=998
+persist.radio.ecc_hard_count=1
 
 # USB
 ro.usb.id.charge=F006
