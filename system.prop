@@ -9,8 +9,6 @@ ro.product.model.platform=1
 
 # Radio
 persist.radio.multisim.config=dsds
-ril.ecclist=*911,#911,000,08,999,118,911,112,998
-ril.ecclist1=*911,#911,000,08,999,118,911,112,998
 ro.telephony.default_network=9,1
 
 # USB
