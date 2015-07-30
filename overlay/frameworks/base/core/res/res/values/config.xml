@@ -169,4 +169,5 @@
     <!-- Is the device capable of hot swapping an UICC Card -->
     <bool name="config_hotswapCapable">true</bool>
 
+    <string name="config_useragentprofile_url" translatable="false">http://ua-profiles.cyngn.com/kipper/kipper-80c06e894c.rdf</string>
 </resources>
