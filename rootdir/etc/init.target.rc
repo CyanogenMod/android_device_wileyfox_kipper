@@ -100,3 +100,11 @@ on boot
     # Touchscreen
     chown root system /sys/devices/soc.0/78b9000.i2c/i2c-5/5-0024/main_ttsp_core.cyttsp4_i2c_adapter/btn_enabled
     chmod 0660 /sys/devices/soc.0/78b9000.i2c/i2c-5/5-0024/main_ttsp_core.cyttsp4_i2c_adapter/btn_enabled
+
+    # Notification LED
+    chown system system /sys/class/leds/red/blink
+    chown system system /sys/class/leds/green/blink
+    chown system system /sys/class/leds/blue/blink
+    chown system system /sys/class/leds/red/led_time
+    chown system system /sys/class/leds/green/led_time
+    chown system system /sys/class/leds/blue/led_time
