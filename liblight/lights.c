@@ -68,6 +68,15 @@ const char *const GREEN_BLINK_FILE
 const char *const BLUE_BLINK_FILE
         = "/sys/class/leds/blue/blink";
 
+const char *const RED_BREATH_FILE
+        = "/sys/class/leds/red/led_time";
+
+const char *const GREEN_BREATH_FILE
+        = "/sys/class/leds/green/led_time";
+
+const char *const BLUE_BREATH_FILE
+        = "/sys/class/leds/blue/led_time";
+
 /**
  * device methods
  */
@@ -130,6 +139,7 @@ set_speaker_light_locked(struct light_device_t *dev,
     int blink;
     int onMS, offMS;
     unsigned int colorRGB;
+    char breath_pattern[64] = { 0, };
 
     if (!dev) {
         return -1;
@@ -168,29 +178,72 @@ set_speaker_light_locked(struct light_device_t *dev,
     green = (colorRGB >> 8) & 0xFF;
     blue = colorRGB & 0xFF;
 
-    if (onMS > 0 && offMS > 0) {
-        blink = 1;
-    } else {
-        blink = 0;
+    if (onMS > 0 && offMS > 0 && !(
+          (red == green && green == blue) ||
+          (red == green && blue == 0) ||
+          (red == blue && green == 0) ||
+          (green == blue && red == 0) ||
+          (blue == 0 && red == 0) ||
+          (green == 0 && red == 0) ||
+          (green == 0 && blue == 0)
+       )) {
+       // Blinking only works if all active component colors have
+       // the same brightness value
+       offMS = 0;
     }
 
-    if (blink) {
-        if (red) {
-            if (write_int(RED_BLINK_FILE, blink))
-                write_int(RED_LED_FILE, 0);
+    if (onMS > 0 && offMS > 0) {
+        blink = 1;
+        // Make sure the values are at least 1 second. That's the smallest
+        // we take
+        if (onMS && onMS < 1000) {
+            onMS = 1000;
         }
-        if (green) {
-            if (write_int(GREEN_BLINK_FILE, blink))
-                write_int(GREEN_LED_FILE, 0);
+        if (offMS && offMS < 1000) {
+            offMS = 1000;
         }
-        if (blue) {
-            if (write_int(BLUE_BLINK_FILE, blink))
-                write_int(BLUE_LED_FILE, 0);
-        }
+        // ramp up, lit, ramp down, unlit. in seconds.
+        sprintf(breath_pattern,"1 %d 1 %d",
+                (int)(onMS / 1000), (int)(offMS / 1000));
     } else {
+        blink = 0;
+        sprintf(breath_pattern,"1 2 1 2");
+    }
+
+    if (is_lit(&g_buttons)) {
+        // This is acting as the home button, skip the delay
+        // since this needs to respond immediately.
         write_int(RED_LED_FILE, red);
         write_int(GREEN_LED_FILE, green);
         write_int(BLUE_LED_FILE, blue);
+    } else {
+        // Order of operations matters.
+        //
+        // Setting a pattern jacks up brightness to max, and setting the level
+        // resets blink state. So first set the pattern, then the level,
+        // and then kick off blinkage
+        if (!write_string(RED_BREATH_FILE, breath_pattern)) {
+            write_int(RED_LED_FILE, red);
+        }
+        if (!write_string(GREEN_BREATH_FILE, breath_pattern)) {
+            write_int(GREEN_LED_FILE, green);
+        }
+        if (!write_string(BLUE_BREATH_FILE, breath_pattern)) {
+            write_int(BLUE_LED_FILE, blue);
+        }
+
+        // Power rails are in a workqueue, give the kernel time to bring them
+        // up before starting the blinks, or those'll be lost
+        usleep(500 * 1000);
+        if (red) {
+            write_int(RED_BLINK_FILE, blink);
+        }
+        if (green) {
+            write_int(GREEN_BLINK_FILE, blink);
+        }
+        if (blue) {
+            write_int(BLUE_BLINK_FILE, blink);
+        }
     }
 
     return 0;
