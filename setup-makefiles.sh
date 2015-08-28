@@ -95,6 +95,9 @@ EOF
 
 # Pick up overlay for features that depend on non-open-source files
 PRODUCT_PACKAGES += \\
+    cktnvtool
+
+PRODUCT_PACKAGES += \\
     com.qualcomm.location
 
 PRODUCT_PACKAGES += \\
@@ -171,6 +174,14 @@ LOCAL_PATH := \$(call my-dir)
 
 ifeq (\$(TARGET_DEVICE),kipper)
 ifeq (\$(QCPATH),)
+
+include \$(CLEAR_VARS)
+LOCAL_MODULE := cktnvtool
+LOCAL_MODULE_OWNER := $VENDOR
+LOCAL_SRC_FILES := proprietary/bin/cktnvtool
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_CLASS  := EXECUTABLES
+include \$(BUILD_PREBUILT)
 
 include \$(CLEAR_VARS)
 LOCAL_MODULE := com.qualcomm.location

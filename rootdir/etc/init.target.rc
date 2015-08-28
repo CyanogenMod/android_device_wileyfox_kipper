@@ -108,3 +108,9 @@ on boot
     chown system system /sys/class/leds/red/led_time
     chown system system /sys/class/leds/green/led_time
     chown system system /sys/class/leds/blue/led_time
+
+service cktnv /system/bin/cktnvtool
+    user root
+    group root
+    class late_start
+    oneshot

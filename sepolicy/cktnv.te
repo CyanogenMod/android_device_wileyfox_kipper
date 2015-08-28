@@ -1,0 +1,11 @@
+type cktnv, domain;
+type cktnv_exec, exec_type, file_type;
+init_daemon_domain(cktnv)
+
+unix_socket_connect(cktnv, qmuxd, qmuxd)
+unix_socket_connect(cktnv, property, init)
+
+allow cktnv cktnv_prop:property_service set;
+allow cktnv qmuxd_socket:dir w_dir_perms;
+allow cktnv qmuxd_socket:sock_file { create setattr getattr write unlink };
+allow cktnv self:capability { dac_override dac_read_search fsetid };

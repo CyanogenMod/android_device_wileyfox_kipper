@@ -78,8 +78,11 @@ BOARD_SEPOLICY_DIRS += \
     device/wileyfox/kipper/sepolicy
 
 BOARD_SEPOLICY_UNION += \
+    cktnv.te \
     file.te \
     file_contexts \
+    property.te \
+    property_contexts \
     system_server.te
 
 # Wifi

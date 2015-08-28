@@ -272,6 +272,9 @@ vendor/lib64/libril-qcril-hook-oem.so
 vendor/lib64/libsystem_health_mon.so
 vendor/lib64/libxml.so
 
+# Serial
+-bin/cktnvtool
+
 # Thermal
 bin/thermal-engine
 vendor/lib64/libthermalclient.so
