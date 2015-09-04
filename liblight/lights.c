@@ -303,6 +303,7 @@ set_light_notifications(UNUSED struct light_device_t *dev,
 {
     pthread_mutex_lock(&g_lock);
     g_notification = *state;
+    handle_speaker_light_locked(dev);
     pthread_mutex_unlock(&g_lock);
 
     return 0;
