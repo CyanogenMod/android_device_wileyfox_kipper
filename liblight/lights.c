@@ -272,7 +272,7 @@ set_light_buttons(UNUSED struct light_device_t *dev,
     int brightness = rgb_to_brightness(state);
     pthread_mutex_lock(&g_lock);
     g_buttons = *state;
-    g_buttons.color = brightness ? 0x007f7f7f : 0;
+    g_buttons.color = brightness ? 0x00ffffff : 0;
     err = write_int(BUTTONS_FILE, brightness);
     handle_speaker_light_locked(dev);
     pthread_mutex_unlock(&g_lock);
