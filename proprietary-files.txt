@@ -1,3 +1,6 @@
+# Camera libraries
+vendor/lib/libmmcamera2_stats_algorithm.so
+
 # Signed Venus (media) firmware
 etc/firmware/venus.b00
 etc/firmware/venus.b01
