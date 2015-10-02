@@ -298,6 +298,7 @@ set_light_attention(UNUSED struct light_device_t *dev,
 {
     pthread_mutex_lock(&g_lock);
     g_attention = *state;
+    handle_speaker_light_locked(dev);
     pthread_mutex_unlock(&g_lock);
 
     return 0;
@@ -310,6 +311,7 @@ set_light_battery(UNUSED struct light_device_t *dev,
     pthread_mutex_lock(&g_lock);
     g_battery = *state;
     g_battery_color = g_battery.color;
+    handle_speaker_light_locked(dev);
     pthread_mutex_unlock(&g_lock);
 
     return 0;
