@@ -204,5 +204,8 @@
          The default is false. -->
     <bool name="config_lidControlsSleep">true</bool>
 
+    <!-- Flag indicating device support for EAP SIM, AKA, AKA' -->
+    <bool name="config_eap_sim_based_auth_supported">true</bool>
+
     <string name="config_useragentprofile_url" translatable="false">http://ua-profiles.cyngn.com/kipper/kipper-80c06e894c.rdf</string>
 </resources>
