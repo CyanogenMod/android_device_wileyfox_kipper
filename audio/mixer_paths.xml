@@ -299,6 +299,7 @@
 
     <path name="audio-record">
         <ctl name="MultiMedia1 Mixer TERT_MI2S_TX" value="1" />
+        <ctl name="SPK DAC Switch" value="0" />
     </path>
     <!-- listen -->
     <ctl name="LSM1 MUX" value="None" />
