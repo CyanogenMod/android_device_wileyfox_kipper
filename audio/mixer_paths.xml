@@ -560,8 +560,7 @@
     </path>
 
     <path name="speaker-mic">
-        <ctl name="DEC1 MUX" value="ADC2" />
-        <ctl name="ADC2 MUX" value="INP3" />
+        <path name="adc1" />
         <ctl name="IIR1 INP1 MUX" value="DEC1" />
     </path>
 
