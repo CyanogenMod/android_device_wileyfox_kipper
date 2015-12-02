@@ -109,10 +109,6 @@ on boot
     chown system system /sys/class/leds/green/led_time
     chown system system /sys/class/leds/blue/led_time
 
-on property:sys.boot_completed=1
-    # Start FM
-    write /sys/module/radio_iris_transport/parameters/fmsmd_set 1
-
 service cktnv /system/bin/cktnvtool
     user root
     group root
