@@ -134,7 +134,7 @@ int GyroSensor::setInitialState() {
 		mPendingEvent.data[1] = value * CONVERT_GYRO_Y;
 		value = absinfo_z.value;
 		mPendingEvent.data[2] = value * CONVERT_GYRO_Z;
-		mHasPendingEvent = false;
+		mHasPendingEvent = true;
 	}
 	return 0;
 }
@@ -167,7 +167,6 @@ int GyroSensor::enable(int32_t, int en) {
 			err = write(fd, buf, sizeof(buf));
 			close(fd);
 			mEnabled = flags;
-			setInitialState();
 			return 0;
 		}
 		return -1;
