@@ -44,7 +44,7 @@ enum {
 
 char NativeSensorManager::virtualSensorName[VIRTUAL_SENSOR_COUNT][SYSFS_MAXLEN];
 
-const struct sensor_t NativeSensorManager::virtualSensorList [VIRTUAL_SENSOR_COUNT] = {
+struct sensor_t NativeSensorManager::virtualSensorList [VIRTUAL_SENSOR_COUNT] = {
 	[ORIENTATION] = {
 		.name = virtualSensorName[ORIENTATION],
 		.vendor = "oem",
@@ -545,6 +545,12 @@ int NativeSensorManager::getDataInfo() {
 		 * platform with Gyro with SensorFusion.
 		 * The calibration manager will first match "oem-orientation" and
 		 * then match "orientation" to select the algorithms. */
+		virtualSensorList[ORIENTATION].minDelay = (sensor_mag.minDelay < sensor_acc.minDelay) ?
+			sensor_acc.minDelay : sensor_mag.minDelay;
+#if defined (SENSORS_DEVICE_API_VERSION_1_3)
+		virtualSensorList[ORIENTATION].maxDelay = (sensor_mag.maxDelay < sensor_acc.maxDelay) ?
+			sensor_mag.maxDelay : sensor_acc.maxDelay;
+#endif
 		if (!initVirtualSensor(&context[mSensorCount], SENSORS_HANDLE(mSensorCount),
 					virtualSensorList[ORIENTATION])) {
 			addDependency(&context[mSensorCount], sensor_acc.handle);

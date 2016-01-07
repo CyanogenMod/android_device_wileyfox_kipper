@@ -117,7 +117,7 @@ class NativeSensorManager : public Singleton<NativeSensorManager> {
 	struct SensorContext context[MAX_SENSORS];
 	struct SensorEventMap event_list[MAX_SENSORS];
 	static const struct SysfsMap node_map[];
-	static const struct sensor_t virtualSensorList[];
+	static struct sensor_t virtualSensorList[];
 	static char virtualSensorName[][SYSFS_MAXLEN];
 
 	int mSensorCount;
