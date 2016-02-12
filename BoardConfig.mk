@@ -76,7 +76,7 @@ TARGET_USERIMAGES_USE_EXT4 := true
 
 # SELinux
 BOARD_SEPOLICY_DIRS += \
-    device/wileyfox/kipper/sepolicy
+    $(DEVICE_PATH)/sepolicy
 
 # Wifi
 CONFIG_EAP_PROXY := qmi
