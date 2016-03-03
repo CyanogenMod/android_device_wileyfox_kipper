@@ -1,5 +1,6 @@
 # Camera
 persist.camera.cpp.duplication=false
+persist.camera.hal.debug.mask=0
 
 # Display
 ro.sf.lcd_density=480
