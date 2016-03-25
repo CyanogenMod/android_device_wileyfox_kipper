@@ -211,24 +211,16 @@ set_speaker_light_locked(struct light_device_t *dev,
         sprintf(breath_pattern,"1 2 1 2");
     }
 
-    if (is_lit(&g_buttons)) {
-        // This is acting as the home button, skip the delay
-        // since this needs to respond immediately.
-        write_int(RED_LED_FILE, red);
-        write_int(GREEN_LED_FILE, green);
-        write_int(BLUE_LED_FILE, blue);
-    } else {
-        write_string(RED_BREATH_FILE, breath_pattern);
-        write_int(RED_BLINK_FILE, blink);
-        write_string(GREEN_BREATH_FILE, breath_pattern);
-        write_int(GREEN_BLINK_FILE, blink);
-        write_string(BLUE_BREATH_FILE, breath_pattern);
-        write_int(BLUE_BLINK_FILE, blink);
+    write_string(RED_BREATH_FILE, breath_pattern);
+    write_int(RED_BLINK_FILE, blink);
+    write_string(GREEN_BREATH_FILE, breath_pattern);
+    write_int(GREEN_BLINK_FILE, blink);
+    write_string(BLUE_BREATH_FILE, breath_pattern);
+    write_int(BLUE_BLINK_FILE, blink);
 
-        write_int(RED_LED_FILE, red);
-        write_int(GREEN_LED_FILE, green);
-        write_int(BLUE_LED_FILE, blue);
-    }
+    write_int(RED_LED_FILE, red);
+    write_int(GREEN_LED_FILE, green);
+    write_int(BLUE_LED_FILE, blue);
 
     return 0;
 }
@@ -236,7 +228,6 @@ set_speaker_light_locked(struct light_device_t *dev,
 static void
 handle_speaker_light_locked(struct light_device_t *dev)
 {
-    set_speaker_light_locked(dev, NULL);
     if (is_lit(&g_buttons)) {
         set_speaker_light_locked(dev, &g_buttons);
     } else if (is_lit(&g_attention)) {
@@ -245,6 +236,8 @@ handle_speaker_light_locked(struct light_device_t *dev)
         set_speaker_light_locked(dev, &g_notification);
     } else if (is_lit(&g_battery)) {
         set_speaker_light_locked(dev, &g_battery);
+    } else {
+        set_speaker_light_locked(dev, NULL);
     }
 }
 
