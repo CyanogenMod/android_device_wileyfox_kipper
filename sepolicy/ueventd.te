@@ -1,0 +1,1 @@
+allow ueventd sensors_sysfs:file rw_file_perms;
