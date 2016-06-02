@@ -32,7 +32,7 @@
 #define GYRO_INPUT_DEV_NAME 	"gyroscope"
 
 #define FETCH_FULL_EVENT_BEFORE_RETURN 	1
-#define IGNORE_EVENT_TIME 				350000000
+#define IGNORE_EVENT_TIME 				20000000
 
 #define	EVENT_TYPE_GYRO_X	ABS_RX
 #define	EVENT_TYPE_GYRO_Y	ABS_RY
@@ -134,7 +134,7 @@ int GyroSensor::setInitialState() {
 		mPendingEvent.data[1] = value * CONVERT_GYRO_Y;
 		value = absinfo_z.value;
 		mPendingEvent.data[2] = value * CONVERT_GYRO_Z;
-		mHasPendingEvent = true;
+		mHasPendingEvent = false;
 	}
 	return 0;
 }
