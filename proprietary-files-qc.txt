@@ -157,6 +157,7 @@ vendor/lib/drm/libdrmwvmplugin.so
 vendor/lib/mediadrm/libwvdrmengine.so
 
 # GPS
+bin/loc_launcher
 etc/permissions/com.qti.location.sdk.xml
 etc/permissions/com.qualcomm.location.xml
 framework/com.qti.location.sdk.jar
@@ -165,6 +166,7 @@ framework/com.qti.location.sdk.jar
 -lib/libloc_api_v02.so
 -lib/libloc_ds_api.so
 -priv-app/com.qualcomm.location/com.qualcomm.location.apk
+vendor/bin/slim_daemon
 vendor/lib64/hw/flp.default.so
 vendor/lib64/libdataitems.so
 vendor/lib64/libflp.so
